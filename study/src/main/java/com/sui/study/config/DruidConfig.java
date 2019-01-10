@@ -8,6 +8,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 import javax.sql.DataSource;
 import java.util.Arrays;
@@ -15,9 +16,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
+@PropertySource(value = {"classpath:druid.properties"})
 public class DruidConfig {
-
-    @ConfigurationProperties(prefix = "spring.datasource")
+    @ConfigurationProperties(prefix = "spring.datasource.druid")
     @Bean
     public DataSource druid(){
         return  new DruidDataSource();
