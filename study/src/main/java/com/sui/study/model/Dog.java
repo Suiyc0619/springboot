@@ -1,6 +1,5 @@
 package com.sui.study.model;
-啊啊
-//请问
+
 public class Dog {
     private String  name;
     private int age;
