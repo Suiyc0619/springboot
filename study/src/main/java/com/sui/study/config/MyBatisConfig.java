@@ -19,9 +19,5 @@ public class MyBatisConfig {
             }
         };
     }
-    @Bean
-    public MybatisProperties mybatisProperties(){
-        return new MybatisProperties();
-    }
 
 }
