@@ -3,11 +3,19 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sui.study.mapper.CourseMapper">
-    <insert id="saveCourse" parameterType="com.sui.study.model.Course">
+    <resultMap id="courseMap" type="com.sui.study.model.Course">
+        <id property="id" column="id" javaType="java.lang.Long" jdbcType="BIGINT"/>
+        <result property="name" column="name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="userId" column="user_id" javaType="java.lang.Long" jdbcType="BIGINT"/>
+    </resultMap>
+    <insert id="saveCourse" parameterType="com.sui.study.model.Course" useGeneratedKeys="true" keyProperty="id">
         INSERT  into course (name,user_id) VALUES
         (#{name},#{userId})
     </insert>
-    <select id="selectCourse" resultType="com.sui.study.model.Course">
+    <select id="selectCourse" resultMap="courseMap">
         select * from course where id=#{id}
+    </select>
+    <select id="selectAllCourse" resultMap="courseMap">
+        select * from course
     </select>
 </mapper>
