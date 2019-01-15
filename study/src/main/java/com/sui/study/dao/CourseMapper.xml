@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sui.study.mapper.CourseMapper">
+    <insert id="saveCourse" parameterType="com.sui.study.model.Course">
+        INSERT  into course (name,user_id) VALUES
+        (#{name},#{userId})
+    </insert>
+    <select id="selectCourse" resultType="com.sui.study.model.Course">
+        select * from course where id=#{id}
+    </select>
+</mapper>
