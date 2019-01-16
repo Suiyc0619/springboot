@@ -2,7 +2,9 @@ package com.sui.study.controller;
 
 import com.sui.study.mapper.CourseMapper;
 import com.sui.study.model.Course;
+import com.sui.study.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +16,8 @@ public class CourseController {
 
     @Autowired
     CourseMapper courseMapper;
+    @Autowired
+    CourseService courseService;
 
     @RequestMapping("/saveCourse")
     public Course saveCourse(Course course){
@@ -29,7 +33,7 @@ public class CourseController {
 
     @RequestMapping("/selectAllCourse")
     public List<Course> selectAllCourse(){
-        List<Course> courseList = courseMapper.selectAllCourse();
+        List<Course> courseList = courseService.selectAllCourse();
         return courseList;
     }
 
