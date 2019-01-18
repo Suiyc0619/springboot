@@ -27,7 +27,7 @@ public class CourseController {
 
     @RequestMapping("/selectCourse/{id}")
     public Course selectCourse(@PathVariable("id") Long id){
-        Course course = courseMapper.selectCourse(id);
+        Course course = courseService.selectCourse(id);
         return course;
     }
 

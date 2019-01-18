@@ -2,6 +2,7 @@ package com.sui.study.controller;
 
 import com.sui.study.mapper.UserMapper;
 import com.sui.study.model.User;
+import com.sui.study.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,8 @@ public class UserController {
 
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    UserService userService;
 
     @RequestMapping("/selectUser/{id}")
     public User selectUser(@PathVariable("id") Long id){
@@ -30,7 +33,7 @@ public class UserController {
 
     @RequestMapping("/selectAll")
     public List<User> selectAll(){
-        List<User> userList= userMapper.selectAll();
+        List<User> userList= userService.selectAll();
         return userList;
     }
 }
