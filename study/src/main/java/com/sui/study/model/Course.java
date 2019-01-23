@@ -1,12 +1,24 @@
 package com.sui.study.model;
 
+import io.searchbox.annotations.JestId;
+import org.springframework.data.elasticsearch.annotations.Document;
+
 import java.io.Serializable;
-
+@Document(indexName = "sui",type = "course")
 public class Course implements Serializable{
-
+    @JestId
     private Long id;
     private String name;
     private Long userId;
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", userId=" + userId +
+                '}';
+    }
 
     public Long getId() {
         return id;

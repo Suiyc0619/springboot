@@ -2,6 +2,7 @@ package com.sui.study.controller;
 
 import com.sui.study.mapper.CourseMapper;
 import com.sui.study.model.Course;
+import com.sui.study.repository.CourseRepository;
 import com.sui.study.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -18,6 +19,8 @@ public class CourseController {
     CourseMapper courseMapper;
     @Autowired
     CourseService courseService;
+    @Autowired
+    CourseRepository courseRepository;
 
     @RequestMapping("/saveCourse")
     public Course saveCourse(Course course){
@@ -35,6 +38,12 @@ public class CourseController {
     public List<Course> selectAllCourse(){
         List<Course> courseList = courseService.selectAllCourse();
         return courseList;
+    }
+
+    @RequestMapping("/elasticCourse")
+    public void elasticTest(){
+        Course course = courseMapper.selectCourse(1L);
+        courseRepository.index(course);
     }
 
 }
