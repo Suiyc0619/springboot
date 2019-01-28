@@ -19,10 +19,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.ConfigFileApplicationContextInitializer;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.sql.DataSource;
+import java.io.File;
 import java.io.IOException;
 
 @RunWith(SpringRunner.class)
@@ -50,6 +57,9 @@ public class StudyApplicationTests {
 
 	@Autowired
 	CourseRepository courseRepository;
+
+	@Autowired
+	JavaMailSenderImpl javaMailSender;
 
 
 	@Test
@@ -117,6 +127,33 @@ public class StudyApplicationTests {
 	public void elasticTest(){
 		Course course = courseMapper.selectCourse(1L);
 		courseRepository.index(course);
+	}
+
+	@Test
+	public void email(){
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setSubject("boot邮件测试");
+		message.setText("ceshi成功！");
+		message.setFrom("457591393@qq.com");
+		message.setTo("suiyongchao@dongao.com");
+		javaMailSender.send(message);
+	}
+
+	@Test
+	public void emailComplex(){
+		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+		try {
+			MimeMessageHelper message = new MimeMessageHelper(mimeMessage,true);
+			message.setSubject("boot邮件测试2");
+			message.setText("<font color:red>ceshi成功！</font>",true);
+			message.setFrom("457591393@qq.com");
+			message.setTo("suiyongchao@dongao.com");
+			message.addAttachment("测试附件.xlsx",new File("C:\\Users\\suiyongchao\\Desktop\\邮件数据.xlsx"));
+			javaMailSender.send(mimeMessage);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+
 	}
 }
 
